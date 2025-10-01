@@ -1,5 +1,5 @@
-# Use Ubuntu 24.04 LTS as the base image
-FROM ubuntu:24.04
+# Use Debian 12 (Bookworm) as a stable base image
+FROM debian:bookworm-slim
 
 # Set non-interactive frontend for package installation
 ENV DEBIAN_FRONTEND=noninteractive
@@ -10,7 +10,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 # - curl: For testing the VPN connection
 # - net-tools: For network diagnostics
 RUN apt-get update && apt-get install -y \
-    resolvconf \
     wireguard-tools \
     nginx \
     curl \
