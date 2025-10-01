@@ -7,7 +7,7 @@ echo "--- Starting WireGuard VPN ---"
 
 # Start the WireGuard interface wg0 using the provided surfshark.conf
 # The `&` runs this in the background, but wg-quick manages the process.
-wg-quick up wg0
+/usr/bin/wg-quick up wg0
 
 echo "VPN interface is up. Waiting for connection to establish..."
 
@@ -31,11 +31,11 @@ done
 
 if [ "$SUCCESS" = false ]; then
     echo "--- VPN connection failed after several attempts. Exiting. ---"
-    wg-quick down wg0
+    /usr/bin/wg-quick down wg0
     exit 1
 fi
 
 echo "--- Starting Nginx reverse proxy ---"
 # Start Nginx in the foreground to keep the container running
 # and to pipe logs to Docker's log collector.
-nginx -g 'daemon off;'
+/usr/sbin/nginx -g 'daemon off;'
