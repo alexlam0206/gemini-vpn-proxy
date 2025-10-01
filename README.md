@@ -22,17 +22,21 @@ The container is fully automated: on startup, it establishes the VPN connection 
 ---
 
 ## Prerequisites
-- A server or machine with Docker and Docker Compose installed.
-- A domain name
+- A server or machine with Docker and Docker Compose installed (for the recommended method).
+- A domain name.
 - An active Surfshark VPN subscription.
 
 ---
 
-## Setup and Usage
+## Usage
 
-Follow these steps to get your proxy running.
+There are two ways to run this project. The recommended method is using Docker, which handles all dependencies automatically.
 
-### Step 1: Get Project Files
+### Recommended Method: Using Docker
+
+This is the easiest and most reliable way to run the proxy.
+
+#### Step 1: Get Project Files
 
 Clone the repository to your server and navigate into the project directory.
 
@@ -41,7 +45,7 @@ git clone https://github.com/alexlam0206/gemini-vpn-proxy.git
 cd gemini-vpn-proxy
 ```
 
-### Step 2: Obtain Surfshark WireGuard Configuration
+#### Step 2: Obtain Surfshark WireGuard Configuration
 
 1.  Log in to your Surfshark account.
 2.  Navigate to **VPN -> Manual setup -> Router -> WireGuard**.
@@ -52,7 +56,7 @@ cd gemini-vpn-proxy
 
 > **Security Warning**: The `surfshark.conf` file contains your private key. **Do not commit this file to a public Git repository.** Add `surfshark.conf` to your `.gitignore` file immediately.
 
-### Step 3: Configure DNS
+#### Step 3: Configure DNS
 
 Go to your domain registrar's DNS management panel for your domain. Create an **A record** for the subdomain `gemini` and point it to the public IP address of the server where you are running this Docker container.
 
@@ -60,16 +64,55 @@ Go to your domain registrar's DNS management panel for your domain. Create an **
 - **Name/Host**: `gemini`
 - **Value/Points to**: `YOUR_SERVER_IP_ADDRESS`
 
-### Step 4: Build and Run the Container
+#### Step 4: Build and Run the Container
 
 With all the files in place (including `surfshark.conf`), open a terminal in the project directory and run:
 
 ```bash
-docker compose up --build -d
+docker-compose up --build -d
 ```
 
 - `--build`: Builds the Docker image from the `Dockerfile`.
 - `-d`: Runs the container in detached mode (in the background).
+
+---
+
+### Alternative Method: Manual Installation
+
+If you do not wish to use Docker, you can run the scripts directly on your host machine. This is not recommended as you will have to manage all dependencies yourself.
+
+**1. Install Dependencies:**
+
+You will need to install `wireguard-tools`, `nginx`, and `curl`. The commands vary depending on your operating system. If you are using WSL (Windows Subsystem for Linux), use the command for your Linux distribution.
+
+**For Debian/Ubuntu:**
+```bash
+sudo apt-get update
+sudo apt-get install wireguard-tools nginx curl
+```
+
+**For Fedora/CentOS:**
+```bash
+sudo dnf install wireguard-tools nginx curl
+```
+
+**For Arch Linux:**
+```bash
+sudo pacman -S wireguard-tools nginx curl
+```
+
+**2. Configure and Run:**
+
+Once the dependencies are installed, you will need to:
+1.  Place your `surfshark.conf` file at `/etc/wireguard/wg0.conf`.
+2.  Configure Nginx by copying the provided `nginx.conf` to `/etc/nginx/nginx.conf`.
+3.  Run the `start.sh` script with administrator privileges (`sudo`).
+
+```bash
+sudo ./start.sh
+```
+
+This manual setup is more complex and prone to errors. The Docker method is strongly recommended.
 
 ---
 
@@ -110,5 +153,3 @@ You should see the Gemini website, fully functional, served through your VPN-ena
 - **`nginx.conf`**: Configures Nginx to listen on port 3000 and reverse proxy requests to `gemini.google.com`.
 - **`start.sh`**: The entrypoint script that orchestrates the startup sequence: connect VPN, then start Nginx.
 - **`surfshark.conf`**: Your personal WireGuard configuration file (you must provide this).
-
-
