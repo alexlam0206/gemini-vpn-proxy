@@ -37,8 +37,8 @@ Follow these steps to get your proxy running.
 Clone the repository to your server and navigate into the project directory.
 
 ```bash
-git clone https://github.com/alexlam0206/vpn-gemini-server.git
-cd vpn-gemini-server
+git clone https://github.com/alexlam0206/gemini-vpn-proxy.git
+cd gemini-vpn-proxy
 ```
 
 ### Step 2: Obtain Surfshark WireGuard Configuration
@@ -110,3 +110,4 @@ You should see the Gemini website, fully functional, served through your VPN-ena
 - **`nginx.conf`**: Configures Nginx to listen on port 3000 and reverse proxy requests to `gemini.google.com`.
 - **`start.sh`**: The entrypoint script that orchestrates the startup sequence: connect VPN, then start Nginx.
 - **`surfshark.conf`**: Your personal WireGuard configuration file (you must provide this).
+
