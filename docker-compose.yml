@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  gemini-proxy:
+    build: .
+    container_name: gemini-proxy
+    # NET_ADMIN capability is required for WireGuard to manage network interfaces.
+    cap_add:
+      - NET_ADMIN
+    # sysctl is needed for WireGuard to modify kernel network parameters.
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
