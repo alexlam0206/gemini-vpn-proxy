@@ -10,6 +10,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # - curl: For testing the VPN connection
 # - net-tools: For network diagnostics
 RUN apt-get update && apt-get install -y \
+    resolvconf \
     wireguard-tools \
     nginx \
     curl \
