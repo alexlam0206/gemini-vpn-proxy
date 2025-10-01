@@ -12,4 +12,8 @@ services:
       - net.ipv4.conf.all.src_valid_mark=1
     ports:
       - "3000:3000"
+    # Mount the local surfshark.conf into the container at runtime.
+    # This avoids build errors if the file is missing and allows for easy updates.
+    volumes:
+      - ./surfshark.conf:/etc/wireguard/wg0.conf
     restart: unless-stopped

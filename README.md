@@ -56,7 +56,7 @@ cd gemini-vpn-proxy
 
 > **Security Warning**: The `surfshark.conf` file contains your private key. **Do not commit this file to a public Git repository.** Add `surfshark.conf` to your `.gitignore` file immediately.
 
-#### Step 3: Configure DNS (OPTIONAL)
+#### Step 3: Configure DNS
 
 Go to your domain registrar's DNS management panel for your domain. Create an **A record** for the subdomain `gemini` and point it to the public IP address of the server where you are running this Docker container.
 
@@ -69,7 +69,7 @@ Go to your domain registrar's DNS management panel for your domain. Create an **
 With all the files in place (including `surfshark.conf`), open a terminal in the project directory and run:
 
 ```bash
-docker compose up --build -d
+docker-compose up --build -d
 ```
 
 - `--build`: Builds the Docker image from the `Dockerfile`.
@@ -153,5 +153,3 @@ You should see the Gemini website, fully functional, served through your VPN-ena
 - **`nginx.conf`**: Configures Nginx to listen on port 3000 and reverse proxy requests to `gemini.google.com`.
 - **`start.sh`**: The entrypoint script that orchestrates the startup sequence: connect VPN, then start Nginx.
 - **`surfshark.conf`**: Your personal WireGuard configuration file (you must provide this).
-
-

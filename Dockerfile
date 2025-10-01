@@ -21,10 +21,6 @@ RUN apt-get update && apt-get install -y \
 # Copy the Nginx configuration file into the container
 COPY nginx.conf /etc/nginx/nginx.conf
 
-# Copy the WireGuard configuration file.
-# This file should be placed in the project directory before building.
-COPY surfshark.conf /etc/wireguard/wg0.conf
-
 # Copy the startup script and make it executable
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
