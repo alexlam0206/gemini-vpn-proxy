@@ -3,7 +3,9 @@
 This project provides a self-contained Docker container that acts as a reverse proxy for the Google Gemini website (`gemini.google.com`). It routes all traffic through a Surfshark VPN connection using WireGuard, allowing users in geographically restricted regions (like Hong Kong) to access the full Gemini experience without needing a client-side VPN.
 
 The container is fully automated: on startup, it establishes the VPN connection and then launches an Nginx reverse proxy.
-
+---
+<iframe style="width:100%;height:auto;min-width:600px;min-height:400px;" src="https://www.star-history.com/embed?secret=Z2hwX2QyMEx2ck4zTkpxWlQycXhqYWtHM09qTTdqMnM3ZTFTSWJiNA==#alexlam0206/gemini-vpn-proxy&type=date&legend=top-left" frameBorder="0"></iframe>
+---
 ## Features
 
 - **VPN Integration**: Automatically connects to Surfshark using WireGuard for high performance and reliability.
@@ -153,3 +155,4 @@ You should see the Gemini website, fully functional, served through your VPN-ena
 - **`nginx.conf`**: Configures Nginx to listen on port 3000 and reverse proxy requests to `gemini.google.com`.
 - **`start.sh`**: The entrypoint script that orchestrates the startup sequence: connect VPN, then start Nginx.
 - **`surfshark.conf`**: Your personal WireGuard configuration file (you must provide this).
+
